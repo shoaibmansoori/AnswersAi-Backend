@@ -28,3 +28,69 @@ This project is a RESTful API built with Node.js, Express, and PostgreSQL, using
 ```bash
 git clone https://github.com/yourusername/AskGeniusApp.git
 cd AskGeniusApp
+
+
+Install Dependencies
+npm install
+
+
+
+Set Up Environment Variables
+Create a .env file in the root directory and add the following
+
+
+DATABASE_NAME=your_database_name
+DATABASE_USERNAME=your_database_username
+DATABASE_PASSWORD=your_database_password
+DATABASE_HOST=your_database_host
+JWT_SECRET=your_jwt_secret
+HUGGING_FACE_API_KEY=your_hugging_face_api_key
+
+
+Running the Project
+Start the Server
+npm start
+
+
+Using Nodemon for Development
+npm run dev
+
+
+Database Setup
+1 Install PostgreSQL
+
+Download and install PostgreSQL from here.
+
+2 Create Database
+
+Use the PostgreSQL command line or a tool like pgAdmin to create a database.
+
+
+
+
+Dependencies
+Node.js
+Express.js
+Sequelize
+PostgreSQL
+bcryptjs
+jsonwebtoken
+dotenv
+Joi
+axios
+Install all dependencies using:
+
+npm install
+
+
+
+Question Endpoints
+POST /api/questions: Ask a new question
+GET /api/questions/
+: Retrieve specific question and answer
+GET /api/users/
+/questions: Retrieve all questions asked by a user
+Auth Endpoints
+POST /api/auth/login: User login endpoint
+POST /api/auth/logout: User logout endpoint
+
