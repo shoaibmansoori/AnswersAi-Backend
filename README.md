@@ -1,14 +1,14 @@
 # AskGeniusApp
 
-A Node.js RESTful API with Sequelize, PostgreSQL, and JWT Authentication.
+AskGeniusApp is an AI-powered tool that allows users to ask any question and receive intelligent responses. Built with Node.js, Sequelize, PostgreSQL, and JWT Authentication, this RESTful API leverages advanced AI models to provide accurate and insightful answers.
 
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Setup Instructions](#setup-instructions)
 3. [Running the Project](#running-the-project)
 4. [Endpoints](#endpoints)
-5. [Database Setup](#database-setup)
-6. [Environment Variables](#environment-variables)
+5. [Environment Variables](#environment-variables)
+6. [Database Setup](#database-setup)
 7. [Dependencies](#dependencies)
 8. [Testing](#testing)
 
@@ -27,6 +27,19 @@ This project is a RESTful API built with Node.js, Express, and PostgreSQL, using
 ### Clone the Repository
 
 git clone https://github.com/yourusername/AskGeniusApp.git
+
+
+### Running the Project
+
+1. Install dependencies:
+   npm install
+
+2. Run the project:
+   npm start
+
+3. For development, you can use nodemon to automatically restart the server on changes:
+   npm start dev
+
 
 
 ### Endpoints
@@ -57,17 +70,6 @@ git clone https://github.com/yourusername/AskGeniusApp.git
 - **HUGGING_FACE_API_KEY**: your_hugging_face_api_key
 
 
-### Running the Project
-
-1. Install dependencies:
-   npm install
-
-2. Run the project:
-   npm start
-
-3. For development, you can use nodemon to automatically restart the server on changes:
-   npm start dev
-
 
 
 ### Database Setup
@@ -78,6 +80,21 @@ git clone https://github.com/yourusername/AskGeniusApp.git
    Use the PostgreSQL command line or a tool like pgAdmin to create a database.
 
    CREATE DATABASE your_database_name;
+
+
+### Dependencies
+
+- **Node.js**
+- **Express.js**
+- **Sequelize**
+- **PostgreSQL**
+- **bcryptjs**
+- **jsonwebtoken**
+- **dotenv**
+- **Joi**
+- **axios**   
+
+
 
 ### Testing
 
@@ -91,17 +108,7 @@ git clone https://github.com/yourusername/AskGeniusApp.git
 - **Run Tests**
    npm test
 
-### Dependencies
 
-- **Node.js**
-- **Express.js**
-- **Sequelize**
-- **PostgreSQL**
-- **bcryptjs**
-- **jsonwebtoken**
-- **dotenv**
-- **Joi**
-- **axios**
 
 
 
