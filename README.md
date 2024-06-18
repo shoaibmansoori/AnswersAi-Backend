@@ -23,7 +23,7 @@ AskBuddyApp is an AI-powered tool that allows users to ask any question and rece
 
 ### Clone the Repository
 
-git clone https://github.com/yourusername/AskGeniusApp.git
+git clone https://github.com/shoaibmansoori/SHOAIB-MANSOORI-AnswersAi-Backend.git
 
 
 ### Running the Project
