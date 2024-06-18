@@ -32,6 +32,7 @@ const generateToken = (userData) => {
         return {accessToken,refreshToken }
 }
 
+// Function to generate JWT token using refreshtoken
 const generateRefreshToken = (refreshToken) => {
     // Generate a token through refresh token 
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);

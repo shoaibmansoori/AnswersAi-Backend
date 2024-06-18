@@ -4,7 +4,7 @@ const {getQuestionByUserId } = require('../Controllers/questionController')
 
 
 const routes = express.Router();
-
+console.log("inside user route")
 
 routes.post('/',createUser);
 routes.get('/:userId', getUserById,);

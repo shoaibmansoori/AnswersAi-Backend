@@ -1,6 +1,7 @@
 const request = require('supertest');
-const app = require('../index'); // Adjust the path to your app.js
+const app = require('../index'); 
 const { sequelize } = require('../models');
+let userId ; 
 
 beforeAll(async () => {
   await sequelize.sync({ force: true });
@@ -11,39 +12,36 @@ afterAll(async () => {
 });
 
 describe('User API', () => {
-  let token;
   
   test('should create a new user', async () => {
-    const res = await request(app)
-      .post('/api/users')
-      .send({
-        email: 'test@example.com',
-        password: 'password123'
-      });
     
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('id');
-  });
-
-  test('should login a user', async () => {
     const res = await request(app)
-      .post('/api/auth/login')
+      .post('/api/user')
       .send({
-        email: 'test@example.com',
-        password: 'password123'
+        email: 'childrenij233444@gmail.com',
+        password: '12345678'
       });
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('token');
-    token = res.body.token;
+    expect(res.statusCode).toEqual(201);
+    expect(res._body.user).toHaveProperty('email','childrenij233444@gmail.com');
+    userId = res._body.user.id;
   });
+
 
   test('should get user profile', async () => {
     const res = await request(app)
-      .get('/api/users/1')
-      .set('Authorization', `Bearer ${token}`);
+      .get(`/api/user/${userId}`)
     
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('email', 'test@example.com');
+    expect(res._body).toHaveProperty('id', `${userId}`);
+  });
+
+
+  test('should get all questions asked by the user', async () => {
+    const res = await request(app)
+      .get(`/api/user/${userId}/questions`)
+    
+    expect(res.statusCode).toEqual(200);
+    expect(res._body).toBeInstanceOf(Array);
   });
 });

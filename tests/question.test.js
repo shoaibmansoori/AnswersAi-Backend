@@ -1,68 +1,52 @@
 const request = require('supertest');
-const app = require('../index'); // Adjust the path to your app.js
-
+const app = require('../index');
+const { sequelize } = require('../models'); 
+let server;
 let token;
+let questionId; 
 
 beforeAll(async () => {
   // Create a user and get the token
-  await request(app)
-    .post('/api/users')
-    .send({
-      email: 'test@example.com',
-      password: 'password123'
-    });
+  await sequelize.sync({ force: true });
+  server = app.listen(4000);
 
   const res = await request(app)
-    .post('/api/auth/login')
+    .post('/api/user')
     .send({
-      email: 'test@example.com',
+      email: 'test123@example.com',
       password: 'password123'
     });
 
-  token = res.body.token;
+  token = res?._body?.token?.accessToken;
 });
 
 afterAll(async () => {
   await sequelize.close();
+  server.close();
 });
+
 
 describe('Question API', () => {
   test('should create a new question', async () => {
     const res = await request(app)
-      .post('/api/questions')
+      .post('/api/question')
       .set('Authorization', `Bearer ${token}`)
       .send({
         content: 'What is the capital of France?'
       });
 
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('question');
+    expect(res?.statusCode).toEqual(201);
+    expect(res?._body).toHaveProperty('botResponse');
+     questionId = res?._body?.question?.id;
   });
+
 
   test('should get a specific question', async () => {
-    const res = await request(app)
-      .post('/api/questions')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        content: 'What is the capital of Germany?'
-      });
-
-    const questionId = res.body.question.id;
-
     const response = await request(app)
-      .get(`/api/questions/${questionId}`)
-      .set('Authorization', `Bearer ${token}`);
+      .get(`/api/question/${questionId}`)
     
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toHaveProperty('question');
+    expect(response._body).toHaveProperty('question');
   });
 
-  test('should get all questions asked by the user', async () => {
-    const res = await request(app)
-      .get('/api/users/1/questions')
-      .set('Authorization', `Bearer ${token}`);
-    
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toBeInstanceOf(Array);
-  });
 });

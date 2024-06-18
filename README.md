@@ -1,22 +1,19 @@
-# AskGeniusApp
+# AskBuddyApp
 
-AskGeniusApp is an AI-powered tool that allows users to ask any question and receive intelligent responses. Built with Node.js, Sequelize, PostgreSQL, and JWT Authentication, this RESTful API leverages advanced AI models to provide accurate and insightful answers.
+AskBuddyApp is an AI-powered tool that allows users to ask any question and receive intelligent responses. Built with Node.js, Sequelize, PostgreSQL, and JWT Authentication, this RESTful API leverages advanced AI models to provide accurate and insightful answers.
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Setup Instructions](#setup-instructions)
-3. [Running the Project](#running-the-project)
-4. [Endpoints](#endpoints)
-5. [Environment Variables](#environment-variables)
-6. [Database Setup](#database-setup)
-7. [Dependencies](#dependencies)
-8. [Testing](#testing)
+
+1. [Setup Instructions](#setup-instructions)
+2. [Running the Project](#running-the-project)
+3. [Endpoints](#endpoints)
+4. [Environment Variables](#environment-variables)
+5. [Database Setup](#database-setup)
+6. [Dependencies](#dependencies)
+7. [Testing](#testing)
 
 
 
-## Introduction
-
-This project is a RESTful API built with Node.js, Express, and PostgreSQL, using Sequelize ORM for database interactions. It includes authentication and authorization using JWT tokens.
 
 ## Setup Instructions
 
@@ -67,7 +64,9 @@ git clone https://github.com/yourusername/AskGeniusApp.git
 - **DATABASE_PASSWORD**: your_database_password
 - **DATABASE_HOST**: your_database_host
 - **JWT_SECRET**: your_jwt_secret
+- **REFRESH_TOKEN_SECRET**: your_hugging_face_api_key
 - **HUGGING_FACE_API_KEY**: your_hugging_face_api_key
+- **HUGGING_FACE_AI_MODEL_ENDPOINT**: your_hugging_face_api_key
 
 
 

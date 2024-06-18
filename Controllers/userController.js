@@ -1,48 +1,56 @@
-const Joi = require('joi');
-const { generateToken } = require('../jwt');
+const { generateToken } = require('../utility/jwt');
 const userService = require('../services/userService');
-
-// Validation schemas
-const userSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).required()
-});
+const userSchema = require('../validations/userValidation');
 
 // Create a new user
 const createUser = async (req, res, next) => {
+  // Validate request body
   const { error } = userSchema.validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) {
+    return res.status(400).json({ message: 'Invalid request data', error: error.details[0].message });
+  }
 
   const { email, password } = req.body;
 
   try {
+    // Create a new user
     const user = await userService.createUser(email, password);
+
+    // Generate JWT token for the user
     const payload = {
       id: user.id,
-      user: user.email
+      email: user.email
     };
     const token = generateToken(payload);
-    res.status(201).send({ user, token });
+
+    // Send response with user details and token
+    res.status(201).json({ user, token });
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(400).send('Email already exists');
+      return res.status(400).json({ message: 'Email already exists', error: error.message });
     }
-    next(error);
+    console.error('Error creating user:', error);
+    next(error); // Pass the error to the default error handler
   }
 };
 
-const getUserById = async (req, res) => {
+// Get user by ID
+const getUserById = async (req, res, next) => {
   try {
-    const userData = req.user;
-    const userId = userData.id;
 
+    const userId = req.params.userId
+
+    // Retrieve user by ID
     const user = await userService.getUserById(userId);
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.status(404).json({ message: 'User not found' });
     }
-    res.send(user);
+
+    // Send user details as response
+    res.status(200).json(user);
   } catch (error) {
-    return res.status(403).send('error', error);
+    console.error('Error retrieving user:', error);
+    next(error); // Pass the error to the default error handler
   }
 };
 
