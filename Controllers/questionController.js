@@ -1,9 +1,10 @@
+const { HTTP_STATUS_CODE } = require('../constant/constant');
 const questionService = require('../services/questionService');
 
 // Create a new question
 const askQuestion = async (req, res,next) => {
   const { content } = req.body;
-  const userId = req.user.id;
+  const userId = req.user?.id;
 
   try {
     // Create a new question
@@ -13,7 +14,7 @@ const askQuestion = async (req, res,next) => {
     const botResponse = await questionService.getAIResponse(content);
 
     // Send response
-    res.status(201).send({ botResponse,question });
+    res.status(HTTP_STATUS_CODE?.Ok).send({ botResponse,question });
   } catch (error) {
     console.error('Error creating question:', error);
     next(error);
@@ -28,11 +29,11 @@ const getQuestionById = async (req, res,next) => {
 
     // If question not found, throw NotFoundError
     if (!question) {
-      return res.status(404).json({ message: 'Question not found' });
+      return res.status(HTTP_STATUS_CODE?.Not_Found).json({ message: 'Question not found' });
     }
 
     // Send the question as the response
-    res.status(200).send({ question });
+    res.status(HTTP_STATUS_CODE?.Ok).send({ question });
   } catch (error) {
     console.error('Error retrieving question:', error);
     next(error);
@@ -46,7 +47,7 @@ const getQuestionByUserId = async (req, res,next) => {
     const questions = await questionService.getQuestionsByUserId(req.params.userId);
 
     // Send the questions as the response
-    res.status(200).send(questions);
+    res.status(HTTP_STATUS_CODE?.Ok).send(questions);
   } catch (error) {
     console.error('Error retrieving questions for user:', error);
     next(error);

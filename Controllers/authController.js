@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { User } = require('../models');
 const { generateToken, generateRefreshToken } = require('../utility/jwt');
+const { HTTP_STATUS_CODE } = require('../constant/constant');
 
 
 // Login a user
@@ -12,13 +13,13 @@ const loginUser = async (req, res,next) => {
     // Find the user by email
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(404).send('User Not Found');
+      return res.status(HTTP_STATUS_CODE?.Not_Found).send('User Not Found');
     }
 
     // Compare provided password with the stored hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(404).send('Invalid email or password');
+      return res.status(HTTP_STATUS_CODE?.Not_Found).send('Invalid email or password');
     }
 
     // Generate JWT token
@@ -40,7 +41,7 @@ const loginUser = async (req, res,next) => {
 // Logout a user
 const logoutUser = async (req, res,next) => {
   // Logout is typically handled on the client by removing the token
-  res.status(200).send('Logged out successfully');
+  res.status(HTTP_STATUS_CODE?.Ok).send('Logged out successfully');
 };
 
 
@@ -48,7 +49,7 @@ const logoutUser = async (req, res,next) => {
 const refreshAccessToken = async (req, res,next) => {
   const { refreshToken } = req.body;
   if (!refreshToken) {
-    return res.status(403).json({ message: 'Refresh token is required' });
+    return res.status(HTTP_STATUS_CODE?.Forbidden).json({ message: 'Refresh token is required' });
   }
 
   try {
