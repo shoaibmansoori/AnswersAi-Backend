@@ -1,4 +1,4 @@
-const { HTTP_STATUS_CODE } = require('../constant/constant');
+const { HTTP_STATUS_CODE, MESSAGE } = require('../constant/constant');
 const questionService = require('../services/questionService');
 
 // Create a new question
@@ -29,7 +29,7 @@ const getQuestionById = async (req, res,next) => {
 
     // If question not found, throw NotFoundError
     if (!question) {
-      return res.status(HTTP_STATUS_CODE?.Not_Found).json({ message: 'Question not found' });
+      return res.status(HTTP_STATUS_CODE?.Not_Found).json({ message: MESSAGE?.Question_Not_Found });
     }
 
     // Send the question as the response
