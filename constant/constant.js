@@ -18,4 +18,6 @@ export const MESSAGE = {
 
   //question Message
   Question_Not_Found: 'Question not found',
+
+  Some_Thing_Went_wrong : 'Something went wrong!',
 }
