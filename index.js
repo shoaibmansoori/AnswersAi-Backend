@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const  questionRoute  = require('./routes/questionRoutes')
 const  userRoute  = require('./routes/userRoutes')
-const  authRoute  = require('./routes/authRoutes')
+const  authRoute  = require('./routes/authRoutes');
+const { HTTP_STATUS_CODE, MESSAGE } = require('./constant/constant');
 
 
 const app = express();
@@ -20,7 +21,7 @@ app.use('/api/auth',authRoute);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  res.status(HTTP_STATUS_CODE?.Internal_Server_Error).send(MESSAGE?.Some_Thing_Went_wrong);
 });
 
 
